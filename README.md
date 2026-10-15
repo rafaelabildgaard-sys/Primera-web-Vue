@@ -1,38 +1,67 @@
-# Artes Marciales
+# MartialArts
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplicación informativa sobre artes marciales, creada con Vue 3. Incluye una página de inicio, un
+catálogo conectado a Cloud Firestore y una página de información.
 
-## Recommended IDE Setup
+## Instalación y uso local
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Requisitos: Node.js `^22.18.0` o `>=24.12.0`.
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+Desde la carpeta del proyecto:
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Abre la dirección local que muestre Vite (normalmente `http://localhost:5173/`).
+
+## Compilar y desplegar
+
+Crear la versión de producción:
 
 ```sh
 npm run build
 ```
+
+Desplegar en Firebase Hosting (requiere Firebase CLI e iniciar sesión con `firebase login`):
+
+```sh
+firebase deploy --only hosting
+```
+
+## Componentes
+
+- `Navbar.vue`: navegación principal.
+- `ItemList.vue`: lista de disciplinas de la página de inicio.
+- `ItemCard.vue`: tarjeta con nombre, descripción, nivel e icono opcional.
+
+## Props: ejemplo
+
+`ItemList.vue` (padre) pasa cada disciplina a `ItemCard.vue` (hijo) mediante la prop `art`:
+
+```vue
+<ItemCard v-for="art in martialArts" :key="art.nombre" :art="art" />
+```
+
+La tarjeta muestra `art.nombre`, `art.descripcion` y `art.nivel`.
+
+## Rutas
+
+- `/` — Inicio y disciplinas destacadas (`HomeView.vue`).
+- `/catalog` — Catálogo de Firestore (`CatalogView.vue`).
+- `/about` — Información sobre la aplicación (`AboutView.vue`).
+
+## Firestore
+
+`CatalogView.vue` lee la colección **`artes_marciales`**. Cada documento debe incluir:
+
+- `nombre` (texto)
+- `descripcion` (texto)
+- `nivel` (texto)
+
+El campo `icon` es opcional. Firestore debe estar habilitado y permitir la lectura en sus reglas.
+
+## Web publicada
+
+**Firebase Hosting:** https://web-artes-marciales.web.app/catalog
