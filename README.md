@@ -64,4 +64,4 @@ El campo `icon` es opcional. Firestore debe estar habilitado y permitir la lectu
 
 ## Web publicada
 
-**Firebase Hosting:** https://web-artes-marciales.web.app/catalog
+**Firebase Hosting:** https://web-artes-marciales.web.app
